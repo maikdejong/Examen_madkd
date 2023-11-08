@@ -4,14 +4,20 @@ void main() {
   runApp(const ProductsApp());
 }
 
+bool _isSwitched = false;
+
 class ProductsApp extends StatefulWidget {
   const ProductsApp({super.key});
 
   @override
-  State<ProductsApp> createState() => _ProductsAppState();
+  State<ProductsApp> createState() => ProductsAppState();
+
+  static ProductsAppState of (BuildContext context) =>
+    context.findAncestorStateOfType<ProductsAppState>()!;
 }
 
-class _ProductsAppState extends State<ProductsApp> {
+class ProductsAppState extends State<ProductsApp> {
+  ThemeMode _themeMode = ThemeMode.system;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +26,18 @@ class _ProductsAppState extends State<ProductsApp> {
       theme: ThemeData(
         useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark(
+        useMaterial3: true
+      ),
+      themeMode: _themeMode,
       home: NavigationWidget(),
     );
+  }
+
+  void changeTheme(ThemeMode themeMode) {
+    setState(() {
+      _themeMode = themeMode;
+    });
   }
 }
 
@@ -29,7 +45,6 @@ class NavigationWidget extends StatefulWidget {
   @override
   State<NavigationWidget> createState() => _NavigationWidgetState();
 }
-
 class _NavigationWidgetState extends State<NavigationWidget> {
   var selectedIndex = 0;
 
@@ -137,17 +152,36 @@ class ContactWidget extends StatelessWidget {
   }
 }
 
-class SettingsWidget extends StatelessWidget {
+class SettingsWidget extends StatefulWidget {
   const SettingsWidget({super.key});
 
+  @override
+  State<SettingsWidget> createState() => _SettingsWidgetState();
+}
+
+class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
       ),
-      body: const Center(
-          child: Text('Act like this page is the Settings page.')),
+      body: Column(
+        children: [
+          ListTile(
+            title: Text('Toggle Theme'),
+            trailing: Switch(
+              value: _isSwitched, 
+              onChanged: (value) {
+                setState(() {
+                  _isSwitched = value;
+                });
+                _isSwitched ? ProductsApp.of(context).changeTheme(ThemeMode.light) : ProductsApp.of(context).changeTheme(ThemeMode.dark);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
