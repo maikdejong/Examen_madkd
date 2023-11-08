@@ -167,9 +167,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         title: Text('Settings'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ListTile(
-            title: Text('Toggle Theme'),
+            leading: _isSwitched ? Icon(Icons.dark_mode) : Icon(Icons.light_mode),
+            title: _isSwitched ? Text('Turn off the light') : Text('Turn on the light'),
             trailing: Switch(
               value: _isSwitched, 
               onChanged: (value) {
