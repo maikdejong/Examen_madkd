@@ -38,13 +38,13 @@ class _NavigationWidgetState extends State<NavigationWidget> {
     Widget widget;
 
     Map<int, Widget> widgets = {
-      0: Placeholder(),
-      1: Placeholder(),
-      2: Placeholder(),
-      3: Placeholder(),
+      0: HomeWidget(),
+      1: ProductsWidget(),
+      2: ContactWidget(),
+      3: SettingsWidget(),
     };
 
-    widget = widgets[selectedIndex] ?? Placeholder();
+    widget = widgets[selectedIndex] ?? HomeWidget();
 
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
@@ -89,5 +89,65 @@ class _NavigationWidgetState extends State<NavigationWidget> {
         ),
       );
     });
+  }
+}
+
+class HomeWidget extends StatelessWidget {
+  const HomeWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: const Center(
+          child: Text('Act like this page is filled with useful information.')),
+    );
+  }
+}
+
+class ProductsWidget extends StatelessWidget {
+  const ProductsWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Products'),
+      ),
+      body: const Center(
+          child: Text('Act like this page is filled with products.')),
+    );
+  }
+}
+
+class ContactWidget extends StatelessWidget {
+  const ContactWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Contact'),
+      ),
+      body: const Center(
+          child: Text('Act like this page is the Contact page.')),
+    );
+  }
+}
+
+class SettingsWidget extends StatelessWidget {
+  const SettingsWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+      ),
+      body: const Center(
+          child: Text('Act like this page is the Settings page.')),
+    );
   }
 }
