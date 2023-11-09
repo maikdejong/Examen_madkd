@@ -124,17 +124,16 @@ class ProductsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Generate a list of 100 cards containing a text widget with it's index
-    // and render it using a ResponsiveGridList
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Demo')),
+      appBar: AppBar(title: const Text('Products')),
       body: ResponsiveGridList(
-        horizontalGridMargin: 50,
+        horizontalGridMargin: 20,
         verticalGridMargin: 50,
         minItemWidth: 100,
+        // minItemsPerRow: 2,
+        // maxItemsPerRow: 5,
         children: List.generate(
-          100,
+          20,
           (index) => ColoredBox(
             color: Colors.lightBlue,
             child: Padding(
@@ -142,7 +141,7 @@ class ProductsWidget extends StatelessWidget {
               child: Text(
                 '$index',
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: _isSwitched ? Colors.white : Colors.black),
               ),
             ),
           ),
