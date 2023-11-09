@@ -12,8 +12,8 @@ class ProductsApp extends StatefulWidget {
   @override
   State<ProductsApp> createState() => ProductsAppState();
 
-  static ProductsAppState of (BuildContext context) =>
-    context.findAncestorStateOfType<ProductsAppState>()!;
+  static ProductsAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<ProductsAppState>()!;
 }
 
 class ProductsAppState extends State<ProductsApp> {
@@ -26,9 +26,7 @@ class ProductsAppState extends State<ProductsApp> {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      darkTheme: ThemeData.dark(
-        useMaterial3: true
-      ),
+      darkTheme: ThemeData.dark(useMaterial3: true),
       themeMode: _themeMode,
       home: NavigationWidget(),
     );
@@ -45,6 +43,7 @@ class NavigationWidget extends StatefulWidget {
   @override
   State<NavigationWidget> createState() => _NavigationWidgetState();
 }
+
 class _NavigationWidgetState extends State<NavigationWidget> {
   var selectedIndex = 0;
 
@@ -57,6 +56,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
       1: ProductsWidget(),
       2: ContactWidget(),
       3: SettingsWidget(),
+      4: NewHomeWidget(),
     };
 
     widget = widgets[selectedIndex] ?? HomeWidget();
@@ -82,9 +82,9 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                     label: Text('Contact'),
                   ),
                   NavigationRailDestination(
-                    icon: Icon(Icons.settings), 
-                    label: Text('Settings')
-                    ),
+                      icon: Icon(Icons.settings), label: Text('Settings')),
+                  NavigationRailDestination(
+                      icon: Icon(Icons.holiday_village), label: Text('test')),
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {
@@ -107,6 +107,77 @@ class _NavigationWidgetState extends State<NavigationWidget> {
   }
 }
 
+class NewHomeWidget extends StatelessWidget {
+  const NewHomeWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage('images/coffeebackground.png'),
+        //     fit: BoxFit.cover,
+        //   )
+        // ),
+
+        // child: ListView(
+        //   // This next line does the trick.
+        //   scrollDirection: Axis.horizontal,
+        //   children: <Widget>[
+        //     Container(
+        //       width: 160,
+        //     ),
+        //     SizedBox(
+        //       width: 200, // Set the desired width
+        //       height: 50, // Set the desired height
+        //       child: ElevatedButton(
+        //         onPressed: () {
+        //           // Button action
+        //         },
+        //         child: Text('Button'),
+        //       ),
+        //     ),
+        //     SizedBox(
+        //       width: 200, // Set the desired width
+        //       height: 50, // Set the desired height
+        //       child: ElevatedButton(
+        //         onPressed: () {
+        //           // Button action
+        //         },
+        //         child: Text('Button'),
+        //       ),
+        //     ),
+        //     SizedBox(
+        //       width: 200, // Set the desired width
+        //       height: 50, // Set the desired height
+        //       child: ElevatedButton(
+        //         onPressed: () {
+        //           // Button action
+        //         },
+        //         child: Text('Button'),
+        //       ),
+        //     ),
+        //     SizedBox(
+        //       width: 200, // Set the desired width
+        //       height: 50, // Set the desired height
+        //       child: ElevatedButton(
+        //         onPressed: () {
+        //           // Button action
+        //         },
+        //         child: Text('Button'),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+
+
+      ),
+    );
+  }
+}
+
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key});
 
@@ -116,8 +187,11 @@ class HomeWidget extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: const Center(
-          child: Text('Act like this page is filled with useful information.')),
+      // body: FittedBox(
+      //   child: Image.asset('images/coffee.png',
+      //   fit: BoxFit.fill,
+      //   )
+      // )
     );
   }
 }
@@ -146,8 +220,8 @@ class ContactWidget extends StatelessWidget {
       appBar: AppBar(
         title: Text('Contact'),
       ),
-      body: const Center(
-          child: Text('Act like this page is the Contact page.')),
+      body:
+          const Center(child: Text('Act like this page is the Contact page.')),
     );
   }
 }
@@ -170,15 +244,20 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ListTile(
-            leading: _isSwitched ? Icon(Icons.dark_mode) : Icon(Icons.light_mode),
-            title: _isSwitched ? Text('Turn off the light') : Text('Turn on the light'),
+            leading:
+                _isSwitched ? Icon(Icons.dark_mode) : Icon(Icons.light_mode),
+            title: _isSwitched
+                ? Text('Turn off the light')
+                : Text('Turn on the light'),
             trailing: Switch(
-              value: _isSwitched, 
+              value: _isSwitched,
               onChanged: (value) {
                 setState(() {
                   _isSwitched = value;
                 });
-                _isSwitched ? ProductsApp.of(context).changeTheme(ThemeMode.light) : ProductsApp.of(context).changeTheme(ThemeMode.dark);
+                _isSwitched
+                    ? ProductsApp.of(context).changeTheme(ThemeMode.light)
+                    : ProductsApp.of(context).changeTheme(ThemeMode.dark);
               },
             ),
           ),

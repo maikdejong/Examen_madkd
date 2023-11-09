@@ -26,3 +26,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+  - images/coffee.png
+  - images/coffeebackground.png
