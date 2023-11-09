@@ -17,6 +17,7 @@ dependencies:
   units_converter: ^2.1.1
   dropdown_search: ^5.0.6
   intl: ^0.18.1
+  responsive_grid_list: ^1.4.0
 
 dev_dependencies:
   flutter_test:

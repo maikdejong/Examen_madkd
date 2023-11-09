@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_grid_list/responsive_grid_list.dart';
 
 void main() {
   runApp(const ProductsApp());
@@ -56,7 +57,6 @@ class _NavigationWidgetState extends State<NavigationWidget> {
       1: ProductsWidget(),
       2: ContactWidget(),
       3: SettingsWidget(),
-      4: NewHomeWidget(),
     };
 
     widget = widgets[selectedIndex] ?? HomeWidget();
@@ -82,9 +82,8 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                     label: Text('Contact'),
                   ),
                   NavigationRailDestination(
-                      icon: Icon(Icons.settings), label: Text('Settings')),
-                  NavigationRailDestination(
-                      icon: Icon(Icons.holiday_village), label: Text('test')),
+                      icon: Icon(Icons.settings), 
+                      label: Text('Settings')),
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {
@@ -107,77 +106,6 @@ class _NavigationWidgetState extends State<NavigationWidget> {
   }
 }
 
-class NewHomeWidget extends StatelessWidget {
-  const NewHomeWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage('images/coffeebackground.png'),
-        //     fit: BoxFit.cover,
-        //   )
-        // ),
-
-        // child: ListView(
-        //   // This next line does the trick.
-        //   scrollDirection: Axis.horizontal,
-        //   children: <Widget>[
-        //     Container(
-        //       width: 160,
-        //     ),
-        //     SizedBox(
-        //       width: 200, // Set the desired width
-        //       height: 50, // Set the desired height
-        //       child: ElevatedButton(
-        //         onPressed: () {
-        //           // Button action
-        //         },
-        //         child: Text('Button'),
-        //       ),
-        //     ),
-        //     SizedBox(
-        //       width: 200, // Set the desired width
-        //       height: 50, // Set the desired height
-        //       child: ElevatedButton(
-        //         onPressed: () {
-        //           // Button action
-        //         },
-        //         child: Text('Button'),
-        //       ),
-        //     ),
-        //     SizedBox(
-        //       width: 200, // Set the desired width
-        //       height: 50, // Set the desired height
-        //       child: ElevatedButton(
-        //         onPressed: () {
-        //           // Button action
-        //         },
-        //         child: Text('Button'),
-        //       ),
-        //     ),
-        //     SizedBox(
-        //       width: 200, // Set the desired width
-        //       height: 50, // Set the desired height
-        //       child: ElevatedButton(
-        //         onPressed: () {
-        //           // Button action
-        //         },
-        //         child: Text('Button'),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-
-
-      ),
-    );
-  }
-}
-
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key});
 
@@ -187,11 +115,6 @@ class HomeWidget extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      // body: FittedBox(
-      //   child: Image.asset('images/coffee.png',
-      //   fit: BoxFit.fill,
-      //   )
-      // )
     );
   }
 }
@@ -201,12 +124,30 @@ class ProductsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Generate a list of 100 cards containing a text widget with it's index
+    // and render it using a ResponsiveGridList
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Products'),
+      appBar: AppBar(title: const Text('Demo')),
+      body: ResponsiveGridList(
+        horizontalGridMargin: 50,
+        verticalGridMargin: 50,
+        minItemWidth: 100,
+        children: List.generate(
+          100,
+          (index) => ColoredBox(
+            color: Colors.lightBlue,
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Text(
+                '$index',
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
       ),
-      body: const Center(
-          child: Text('Act like this page is filled with products.')),
     );
   }
 }
