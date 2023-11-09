@@ -6,6 +6,7 @@ Eisen zijn:
     - Startscherm
     - Productenscherm
     - Contactscherm
+ * Database met voorraad. Out of stock: product onzichtbaar
  * light/dark theme
  * Passend ontwerp bij het thema
  * Verzorgde documentatie
