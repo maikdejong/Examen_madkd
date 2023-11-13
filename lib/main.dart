@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
+// import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
+  options: DefaultFirebaseOptions.web,
 );
   runApp(const ProductsApp());
 }
@@ -87,7 +88,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                     label: Text('Contact'),
                   ),
                   NavigationRailDestination(
-                      icon: Icon(Icons.settings), 
+                      icon: Icon(Icons.home), 
                       label: Text('Settings')),
                 ],
                 selectedIndex: selectedIndex,
@@ -138,7 +139,7 @@ class ProductsWidget extends StatelessWidget {
         // minItemsPerRow: 2,
         // maxItemsPerRow: 5,
         children: List.generate(
-          20,
+          25,
           (index) => ColoredBox(
             color: Colors.lightBlue,
             child: Padding(

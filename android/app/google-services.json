@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "989703457943",
+    "firebase_url": "https://fluttermadkd-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "fluttermadkd",
     "storage_bucket": "fluttermadkd.appspot.com"
   },
