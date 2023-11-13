@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 // import 'package:firebase_database/firebase_database.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:contactus/contactus.dart';
 
 Future<void> main() async {
   await Firebase.initializeApp(
@@ -88,7 +90,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                     label: Text('Contact'),
                   ),
                   NavigationRailDestination(
-                      icon: Icon(Icons.home), 
+                      icon: Icon(Icons.settings), 
                       label: Text('Settings')),
                 ],
                 selectedIndex: selectedIndex,
@@ -166,8 +168,20 @@ class ContactWidget extends StatelessWidget {
       appBar: AppBar(
         title: Text('Contact'),
       ),
-      body:
-          const Center(child: Text('Act like this page is the Contact page.')),
+      body: ContactUs(
+          cardColor: Colors.white,
+          textColor: Colors.teal.shade900,
+          logo: const AssetImage('images/contact.png'),
+          email: 'maik-de-jong@live.nl',
+          companyName: 'Koffiewinkel',
+          companyColor: Colors.teal.shade100,
+          dividerThickness: 2,
+          phoneNumber: '+310615493504',
+          website: 'http://maik.fc.school/',
+          githubUserName: 'Maikdejong',
+          tagLine: 'Maik de Jong',
+          taglineColor: Colors.teal.shade100,
+        ),
     );
   }
 }

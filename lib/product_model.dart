@@ -1,3 +1,5 @@
+//zoiets gebruiken voor firebase database
+
 class Product {
   final String id;
   final String name;

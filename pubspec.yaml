@@ -21,6 +21,7 @@ dependencies:
   firebase_database: ^10.3.3
   firebase_core: ^2.22.0
   cloud_firestore: ^4.13.0
+  contactus: ^1.2.3
 
 dev_dependencies:
   flutter_test:
@@ -34,3 +35,4 @@ flutter:
   assets:
   - images/coffee.png
   - images/coffeebackground.png
+  - images/contact.png
