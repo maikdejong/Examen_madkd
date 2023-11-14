@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_grid_list/responsive_grid_list.dart';
-// import 'package:firebase_database/firebase_database.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'package:contactus/contactus.dart';
 
-Future<void> main() async {
-  await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.web,
-);
+// import 'package:responsive_grid_list/responsive_grid_list.dart';
+// import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+void main(){
   runApp(const ProductsApp());
 }
 
@@ -127,33 +125,19 @@ class HomeWidget extends StatelessWidget {
   }
 }
 
-class ProductsWidget extends StatelessWidget {
+class ProductsWidget extends StatefulWidget {
   const ProductsWidget({super.key});
 
   @override
+  State<ProductsWidget> createState() => _ProductsWidgetState();
+}
+
+class _ProductsWidgetState extends State<ProductsWidget> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Products')),
-      body: ResponsiveGridList(
-        horizontalGridMargin: 20,
-        verticalGridMargin: 50,
-        minItemWidth: 100,
-        // minItemsPerRow: 2,
-        // maxItemsPerRow: 5,
-        children: List.generate(
-          25,
-          (index) => ColoredBox(
-            color: Colors.lightBlue,
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: Text(
-                '$index',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: _isSwitched ? Colors.white : Colors.black),
-              ),
-            ),
-          ),
-        ),
+      appBar: AppBar(
+        title: Text('Products'),
       ),
     );
   }
