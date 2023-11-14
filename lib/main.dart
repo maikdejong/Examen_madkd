@@ -3,11 +3,13 @@ import 'package:contactus/contactus.dart';
 
 // import 'package:responsive_grid_list/responsive_grid_list.dart';
 // import 'package:firebase_database/firebase_database.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'firebase_options.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+// import 'flutter_madkd/lib/FirebaseOptions/firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main(){
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const ProductsApp());
 }
 
@@ -139,6 +141,14 @@ class _ProductsWidgetState extends State<ProductsWidget> {
       appBar: AppBar(
         title: Text('Products'),
       ),
+      body: Center(
+        children: [
+          Text('Products'),
+          Text('Products'),
+          Text('Products'),
+          Text('Products'),
+        ]
+      )
     );
   }
 }

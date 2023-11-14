@@ -81,14 +81,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
-  dropdown_search:
-    dependency: "direct main"
-    description:
-      name: dropdown_search
-      sha256: "55106e8290acaa97ed15bea1fdad82c3cf0c248dd410e651f5a8ac6870f783ab"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.6"
   english_words:
     dependency: "direct main"
     description:
@@ -176,6 +168,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  get:
+    dependency: "direct main"
+    description:
+      name: get
+      sha256: e4e7335ede17452b391ed3b2ede016545706c01a02292a6c97619705e7d2a85e
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.6.6"
   intl:
     dependency: "direct main"
     description:
@@ -333,14 +333,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
-  units_converter:
-    dependency: "direct main"
-    description:
-      name: units_converter
-      sha256: "17d9717f9efacfee14e79cff671e99657fe744d9969629cd9163636f2b11f248"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1"
   url_launcher:
     dependency: transitive
     description:
