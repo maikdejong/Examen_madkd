@@ -3,18 +3,18 @@ import 'package:contactus/contactus.dart';
 
 // import 'package:responsive_grid_list/responsive_grid_list.dart';
 // import 'package:firebase_database/firebase_database.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'FirebaseOptions/firebase_options.dart';
+import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.web,
   );
   runApp(ProductsApp());
-  
 }
 
 bool _isSwitched = false;
@@ -94,8 +94,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                     label: Text('Contact'),
                   ),
                   NavigationRailDestination(
-                      icon: Icon(Icons.settings), 
-                      label: Text('Settings')),
+                      icon: Icon(Icons.settings), label: Text('Settings')),
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {
@@ -141,21 +140,56 @@ class ProductsWidget extends StatefulWidget {
 class _ProductsWidgetState extends State<ProductsWidget> {
   @override
   Widget build(BuildContext context) {
+    debugPrint("check1");
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Products'),
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ListView(
-              children: [
-                Card(),
-                Card(),
-              ]
-            )
-          )
-        ]
+          StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection('client').snapshots(),
+              builder: (context, snapshot) {
+                List<Row> clientWidgets = [];
+                debugPrint("check2");
+
+                if (snapshot.hasData) {
+                  debugPrint("check3");
+
+                  final clients = snapshot.data?.docs.reversed.toList();
+                  for (var client in clients!) {
+                    debugPrint("check4");
+
+                    final clientWidget = Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(client['name']),
+                        Text(client['quantity']),
+                        // Text(client['quantity']),
+                      ],
+                    );
+                    debugPrint("check5");
+
+                    try {
+                      clientWidgets.add(clientWidget);
+                    } catch (e) {
+                      debugPrint(e.toString());
+                    }
+                  }
+                }
+                else {
+                  debugPrint("snapshot has no data");
+                }
+
+                return Expanded(
+                  child: ListView(
+                    children: clientWidgets,
+                  ),
+                );
+              }),
+        ],
       ),
     );
   }
@@ -171,19 +205,19 @@ class ContactWidget extends StatelessWidget {
         title: Text('Contact'),
       ),
       body: ContactUs(
-          cardColor: _isSwitched ? Colors.black : Colors.white,
-          textColor: _isSwitched ? Colors.white : Colors.black,
-          // logo: const AssetImage('images/coffeelogo.png'),
-          email: 'maik-de-jong@live.nl',
-          companyName: 'Koffiewinkel',
-          companyColor: _isSwitched ? Colors.black : Colors.white,
-          dividerThickness: 1,
-          phoneNumber: '+310615493504',
-          website: 'http://maik.fc.school/',
-          githubUserName: 'Maikdejong',
-          tagLine: 'Maik de Jong',
-          taglineColor: _isSwitched ? Colors.black : Colors.white,
-        ),
+        cardColor: _isSwitched ? Colors.black : Colors.white,
+        textColor: _isSwitched ? Colors.white : Colors.black,
+        logo: const AssetImage('images/coffeelogo.png'),
+        email: 'maik-de-jong@live.nl',
+        companyName: 'Koffiewinkel',
+        companyColor: _isSwitched ? Colors.black : Colors.white,
+        dividerThickness: 1,
+        phoneNumber: '+310615493504',
+        website: 'http://maik.fc.school/',
+        githubUserName: 'Maikdejong',
+        tagLine: 'Maik de Jong',
+        taglineColor: _isSwitched ? Colors.black : Colors.white,
+      ),
     );
   }
 }

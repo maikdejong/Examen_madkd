@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '989703457943',
     projectId: 'fluttermadkd',
     authDomain: 'fluttermadkd.firebaseapp.com',
+    databaseURL: 'https://fluttermadkd-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'fluttermadkd.appspot.com',
     measurementId: 'G-YR3C1XMLWY',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:989703457943:android:d694fbfceeba76ac49edd2',
     messagingSenderId: '989703457943',
     projectId: 'fluttermadkd',
+    databaseURL: 'https://fluttermadkd-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'fluttermadkd.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:989703457943:ios:9a96c7b304d2a8e949edd2',
     messagingSenderId: '989703457943',
     projectId: 'fluttermadkd',
+    databaseURL: 'https://fluttermadkd-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'fluttermadkd.appspot.com',
     iosBundleId: 'com.example.flutterMadkd',
   );
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:989703457943:ios:d53a2b9b17e8502c49edd2',
     messagingSenderId: '989703457943',
     projectId: 'fluttermadkd',
+    databaseURL: 'https://fluttermadkd-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'fluttermadkd.appspot.com',
     iosBundleId: 'com.example.flutterMadkd.RunnerTests',
   );
