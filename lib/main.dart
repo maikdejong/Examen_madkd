@@ -165,18 +165,16 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                     final clientWidget = Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Text(client['id']),
                         Text(client['name']),
-                        Text(client['quantity']),
                         // Text(client['quantity']),
                       ],
                     );
                     debugPrint("check5");
 
-                    try {
-                      clientWidgets.add(clientWidget);
-                    } catch (e) {
-                      debugPrint(e.toString());
-                    }
+                    clientWidgets.add(clientWidget);
+                    debugPrint("check6");
+                    
                   }
                 }
                 else {
