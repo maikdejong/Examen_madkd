@@ -139,36 +139,39 @@ class ProductsWidget extends StatelessWidget {
         title: Text('Products'),
       ),
       body: Column(children: [
-
         StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-            .collection('client')
-            .snapshots(),
+            stream:
+                FirebaseFirestore.instance.collection('products').snapshots(),
             builder: (context, snapshot) {
-              List<Row> clientWidgets = [];
-              
-              debugPrint(snapshot.toString());
-              if(snapshot.hasData){
-                final clients = snapshot.data?.docs.reversed.toList();
-                for(var client in clients!){
-                  final clientWidget = Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(client['name']),
-                      Text(client['id']),
-                      Text(client['quantity'].toString()),
-                    ]
+              List<Widget> productWidgets = [];
+
+              if (snapshot.hasData) {
+                final products = snapshot.data?.docs.reversed.toList();
+                for (var product in products!) {
+                  final productWidget = Card(
+                    child: Column(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(height: 100, child: Image.asset('images/coffeelogo.png')),
+                            Text(product['name']),
+                            SizedBox(width: 10),
+                            Text('Quantity:'),
+                            Text(product['quantity'].toString()),
+                          ],
+                        ),
+                      ],
+                    ),
                   );
-                  clientWidgets.add(clientWidget);
+                  productWidgets.add(productWidget);
                 }
               }
 
-              return Expanded(
-                child: ListView(
-                  children: clientWidgets,
-                ),
+              return Column(
+                // Wrap the productWidgets list in a Column widget
+                children: productWidgets,
               );
-
 
             }),
       ]),
