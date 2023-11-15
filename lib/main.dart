@@ -8,7 +8,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -130,65 +129,49 @@ class HomeWidget extends StatelessWidget {
   }
 }
 
-class ProductsWidget extends StatefulWidget {
+class ProductsWidget extends StatelessWidget {
   const ProductsWidget({super.key});
 
   @override
-  State<ProductsWidget> createState() => _ProductsWidgetState();
-}
-
-class _ProductsWidgetState extends State<ProductsWidget> {
-  @override
   Widget build(BuildContext context) {
-    debugPrint("check1");
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Products'),
       ),
-      body: Column(
-        children: [
-          StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('client').snapshots(),
-              builder: (context, snapshot) {
-                List<Row> clientWidgets = [];
-                debugPrint("check2");
+      body: Column(children: [
 
-                if (snapshot.hasData) {
-                  debugPrint("check3");
-
-                  final clients = snapshot.data?.docs.reversed.toList();
-                  for (var client in clients!) {
-                    debugPrint("check4");
-
-                    final clientWidget = Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(client['id']),
-                        Text(client['name']),
-                        // Text(client['quantity']),
-                      ],
-                    );
-                    debugPrint("check5");
-
-                    clientWidgets.add(clientWidget);
-                    debugPrint("check6");
-                    
-                  }
+        StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+            .collection('client')
+            .snapshots(),
+            builder: (context, snapshot) {
+              List<Row> clientWidgets = [];
+              
+              debugPrint(snapshot.toString());
+              if(snapshot.hasData){
+                final clients = snapshot.data?.docs.reversed.toList();
+                for(var client in clients!){
+                  final clientWidget = Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(client['name']),
+                      Text(client['id']),
+                      Text(client['quantity'].toString()),
+                    ]
+                  );
+                  clientWidgets.add(clientWidget);
                 }
-                else {
-                  debugPrint("snapshot has no data");
-                }
+              }
 
-                return Expanded(
-                  child: ListView(
-                    children: clientWidgets,
-                  ),
-                );
-              }),
-        ],
-      ),
+              return Expanded(
+                child: ListView(
+                  children: clientWidgets,
+                ),
+              );
+
+
+            }),
+      ]),
     );
   }
 }
