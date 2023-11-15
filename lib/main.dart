@@ -3,14 +3,18 @@ import 'package:contactus/contactus.dart';
 
 // import 'package:responsive_grid_list/responsive_grid_list.dart';
 // import 'package:firebase_database/firebase_database.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_core/firebase_core.dart';
-// import 'flutter_madkd/lib/FirebaseOptions/firebase_options.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'FirebaseOptions/firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const ProductsApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.web,
+  );
+  runApp(ProductsApp());
+  
 }
 
 bool _isSwitched = false;
@@ -141,14 +145,18 @@ class _ProductsWidgetState extends State<ProductsWidget> {
       appBar: AppBar(
         title: Text('Products'),
       ),
-      body: Center(
+      body: Column(
         children: [
-          Text('Products'),
-          Text('Products'),
-          Text('Products'),
-          Text('Products'),
+          Expanded(
+            child: ListView(
+              children: [
+                Card(),
+                Card(),
+              ]
+            )
+          )
         ]
-      )
+      ),
     );
   }
 }
@@ -165,7 +173,7 @@ class ContactWidget extends StatelessWidget {
       body: ContactUs(
           cardColor: _isSwitched ? Colors.black : Colors.white,
           textColor: _isSwitched ? Colors.white : Colors.black,
-          logo: const AssetImage('images/coffeelogo.png'),
+          // logo: const AssetImage('images/coffeelogo.png'),
           email: 'maik-de-jong@live.nl',
           companyName: 'Koffiewinkel',
           companyColor: _isSwitched ? Colors.black : Colors.white,
