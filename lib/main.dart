@@ -117,18 +117,34 @@ class _NavigationWidgetState extends State<NavigationWidget> {
 }
 
 class HomeWidget extends StatelessWidget {
-  const HomeWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/coffeebackground.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Center(
+            child: Text(
+              'Welcome',
+              style: TextStyle(
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
 class ProductsWidget extends StatefulWidget {
   const ProductsWidget({super.key});
 
