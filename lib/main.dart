@@ -129,9 +129,14 @@ class HomeWidget extends StatelessWidget {
   }
 }
 
-class ProductsWidget extends StatelessWidget {
+class ProductsWidget extends StatefulWidget {
   const ProductsWidget({super.key});
 
+  @override
+  State<ProductsWidget> createState() => _ProductsWidgetState();
+}
+
+class _ProductsWidgetState extends State<ProductsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,8 +165,24 @@ class ProductsWidget extends StatelessWidget {
                             ),
                             Text(product['name']),
                             SizedBox(width: 10),
-                            Text('Quantity:'),
-                            Text(product['quantity'].toString()),
+                            Text('Quantity: ${product['quantity']}'),
+                            // Text(product['quantity'].toString()),
+                            Column(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.remove),
+                                  onPressed: () {
+                                    // Decrease quantity logic here
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    // Increase quantity logic here
+                                  },
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ],
