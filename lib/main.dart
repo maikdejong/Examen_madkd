@@ -155,57 +155,64 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                 for (var product in products!) {
                   var quantity = int.parse(product['quantity'].toString());
 
-                  final productWidget = Card(
-                    child: Column(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              height: 250,
-                              child: Image.asset(product['imagePath']),
-                            ),
-                            Text(product['name']),
-                            SizedBox(width: 10),
-                            Text('Quantity: $quantity'),
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.remove),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (quantity > 0) {
-                                        quantity--;
-                                        // Update quantity in Firestore
+                  final productWidget = Offstage(
+                    offstage: quantity == 0,
+                    child: Card(
+                      child: Column(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                            children: [
+                              SizedBox(
+                                height: 250,
+                                child: Image.asset(product['imagePath']),
+                              ),
+                              SizedBox(height: 10),
+                              Text(product['name']),
+                              SizedBox(height: 10),
+                              Text('Quantity: $quantity'),
+                              SizedBox(height: 10),
+
+                              Column(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.remove),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (quantity > 0) {
+                                          quantity--;
+                                          FirebaseFirestore.instance
+                                              .collection('products')
+                                              .doc(product.id)
+                                              .update({'quantity': quantity});
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      setState(() {
+                                        quantity++;
                                         FirebaseFirestore.instance
                                             .collection('products')
                                             .doc(product.id)
                                             .update({'quantity': quantity});
-                                      }
-                                    });
-                                  },
-                                ),
-                                Text(quantity.toString()),
-                                IconButton(
-                                  icon: Icon(Icons.add),
-                                  onPressed: () {
-                                    setState(() {
-                                      quantity++;
-                                      // Update quantity in Firestore
-                                      FirebaseFirestore.instance
-                                          .collection('products')
-                                          .doc(product.id)
-                                          .update({'quantity': quantity});
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+
+                            ],
+
+                          ),
+                        ],
+                      ),
                     ),
                   );
+
                   productWidgets.add(productWidget);
                 }
               }
