@@ -31,6 +31,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  fonts:
+    - family: Coffee
+      fonts:
+        - asset: fonts/BratonComposer-Regular.ttf
+
   assets:
   - images/coffeebackground.png
   - images/coffeelogo.png

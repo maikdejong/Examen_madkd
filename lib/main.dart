@@ -134,9 +134,16 @@ class HomeWidget extends StatelessWidget {
             child: Text(
               'Welcome',
               style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
+                fontFamily: 'Coffee',
+                fontSize: 75,
                 color: Colors.white,
+                shadows: [
+                  Shadow(
+                    color: Colors.black,
+                    blurRadius: 2,
+                    offset: Offset(5, 5),
+                  )
+                ]
               ),
             ),
           ),
@@ -145,6 +152,7 @@ class HomeWidget extends StatelessWidget {
     );
   }
 }
+
 class ProductsWidget extends StatefulWidget {
   const ProductsWidget({super.key});
 
@@ -185,7 +193,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                                   height: 250,
                                   child: AspectRatio(
                                     aspectRatio:
-                                        1, // Set the aspect ratio to 1 for a square shape
+                                        1,
                                     child: FittedBox(
                                       fit: BoxFit.contain,
                                       child: Image.asset(
