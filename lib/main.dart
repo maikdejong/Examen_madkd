@@ -153,6 +153,8 @@ class _ProductsWidgetState extends State<ProductsWidget> {
               if (snapshot.hasData) {
                 final products = snapshot.data?.docs.reversed.toList();
                 for (var product in products!) {
+                  var quantity = int.parse(product['quantity'].toString());
+
                   final productWidget = Card(
                     child: Column(
                       children: [
@@ -165,20 +167,36 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                             ),
                             Text(product['name']),
                             SizedBox(width: 10),
-                            Text('Quantity: ${product['quantity']}'),
-                            // Text(product['quantity'].toString()),
-                            Column(
+                            Text('Quantity: $quantity'),
+                            Row(
                               children: [
                                 IconButton(
                                   icon: Icon(Icons.remove),
                                   onPressed: () {
-                                    // Decrease quantity logic here
+                                    setState(() {
+                                      if (quantity > 0) {
+                                        quantity--;
+                                        // Update quantity in Firestore
+                                        FirebaseFirestore.instance
+                                            .collection('products')
+                                            .doc(product.id)
+                                            .update({'quantity': quantity});
+                                      }
+                                    });
                                   },
                                 ),
+                                Text(quantity.toString()),
                                 IconButton(
                                   icon: Icon(Icons.add),
                                   onPressed: () {
-                                    // Increase quantity logic here
+                                    setState(() {
+                                      quantity++;
+                                      // Update quantity in Firestore
+                                      FirebaseFirestore.instance
+                                          .collection('products')
+                                          .doc(product.id)
+                                          .update({'quantity': quantity});
+                                    });
                                   },
                                 ),
                               ],
