@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:contactus/contactus.dart';
-
-// import 'package:responsive_grid_list/responsive_grid_list.dart';
-// import 'package:firebase_database/firebase_database.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -142,8 +138,8 @@ class HomeWidget extends StatelessWidget {
                     color: Colors.black,
                     blurRadius: 2,
                     offset: Offset(5, 5),
-                  )
-                ]
+                  ),
+                ],
               ),
             ),
           ),
@@ -153,8 +149,9 @@ class HomeWidget extends StatelessWidget {
   }
 }
 
+//TODO: winkelwagen functionaliteit ipv plus en min knop
 class ProductsWidget extends StatefulWidget {
-  const ProductsWidget({super.key});
+  const ProductsWidget({Key? key});
 
   @override
   State<ProductsWidget> createState() => _ProductsWidgetState();
@@ -165,96 +162,92 @@ class _ProductsWidgetState extends State<ProductsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleTextStyle: TextStyle(
+            color: _isSwitched ? Colors.black : Colors.white, 
+            fontSize: 30,
+            fontFamily: 'Coffee'),
         title: Text('Products'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('products').snapshots(),
-              builder: (context, snapshot) {
-                List<Widget> productWidgets = [];
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('products').snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final products = snapshot.data?.docs.toList();
+              return Wrap(
+                alignment: WrapAlignment.center,
+                runSpacing: 8.0,
+                spacing: 8.0,
+                children: products!.map((product) {
+                  var quantity = int.parse(product['quantity'].toString());
 
-                if (snapshot.hasData) {
-                  final products = snapshot.data?.docs.toList();
-                  for (var product in products!) {
-                    var quantity = int.parse(product['quantity'].toString());
-
-                    final productWidget = Offstage(
-                      offstage: quantity == 0,
-                      child: Card(
-                        child: Column(
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                SizedBox(
-                                  height: 250,
-                                  child: AspectRatio(
-                                    aspectRatio:
-                                        1,
-                                    child: FittedBox(
-                                      fit: BoxFit.contain,
-                                      child: Image.asset(
-                                        product['imagePath'],
-                                      ),
+                  return Offstage(
+                    offstage: quantity == 0,
+                    child: Card(
+                      child: Column(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                height: 230,
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: Image.asset(
+                                      product['imagePath'],
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 10),
-                                Text(product['name']),
-                                SizedBox(height: 10),
-                                Text('Quantity: $quantity'),
-                                SizedBox(height: 10),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(Icons.remove),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (quantity > 0) {
-                                            quantity--;
-                                            FirebaseFirestore.instance
-                                                .collection('products')
-                                                .doc(product.id)
-                                                .update({'quantity': quantity});
-                                          }
-                                        });
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.add),
-                                      onPressed: () {
-                                        setState(() {
-                                          quantity++;
+                              ),
+                              SizedBox(height: 10),
+                              Text(product['name']),
+                              SizedBox(height: 10),
+                              Text('Quantity: $quantity'),
+                              SizedBox(height: 10),
+                              Column(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.remove),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (quantity > 0) {
+                                          quantity--;
                                           FirebaseFirestore.instance
                                               .collection('products')
                                               .doc(product.id)
                                               .update({'quantity': quantity});
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      setState(() {
+                                        quantity++;
+                                        FirebaseFirestore.instance
+                                            .collection('products')
+                                            .doc(product.id)
+                                            .update({'quantity': quantity});
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    );
+                    ),
+                  );
+                }).toList(),
+              );
+            }
 
-                    productWidgets.add(productWidget);
-                  }
-                }
-
-                return Column(
-                  // Wrap the productWidgets list in a Column widget
-                  children: productWidgets,
-                );
-              },
-            ),
-          ],
+            return Container(); // Return an empty container if there's no data
+          },
         ),
       ),
     );
@@ -268,6 +261,10 @@ class ContactWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleTextStyle: TextStyle(
+            color: _isSwitched ? Colors.black : Colors.white,
+            fontSize: 30,
+            fontFamily: 'Coffee'),
         title: Text('Contact'),
       ),
       body: ContactUs(
@@ -300,6 +297,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleTextStyle: TextStyle(
+            color: _isSwitched ? Colors.black : Colors.white, 
+            fontSize: 30,
+            fontFamily: 'Coffee'),
         title: Text('Settings'),
       ),
       body: Column(
