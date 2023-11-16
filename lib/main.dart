@@ -154,7 +154,10 @@ class ProductsWidget extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(height: 100, child: Image.asset('images/coffeelogo.png')),
+                            SizedBox(
+                              height: 250,
+                              child: Image.asset(product['imagePath']),
+                            ),
                             Text(product['name']),
                             SizedBox(width: 10),
                             Text('Quantity:'),
@@ -172,7 +175,6 @@ class ProductsWidget extends StatelessWidget {
                 // Wrap the productWidgets list in a Column widget
                 children: productWidgets,
               );
-
             }),
       ]),
     );
