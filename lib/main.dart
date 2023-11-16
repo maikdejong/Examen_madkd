@@ -143,86 +143,96 @@ class _ProductsWidgetState extends State<ProductsWidget> {
       appBar: AppBar(
         title: Text('Products'),
       ),
-      body: Column(children: [
-        StreamBuilder<QuerySnapshot>(
-            stream:
-                FirebaseFirestore.instance.collection('products').snapshots(),
-            builder: (context, snapshot) {
-              List<Widget> productWidgets = [];
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection('products').snapshots(),
+              builder: (context, snapshot) {
+                List<Widget> productWidgets = [];
 
-              if (snapshot.hasData) {
-                final products = snapshot.data?.docs.reversed.toList();
-                for (var product in products!) {
-                  var quantity = int.parse(product['quantity'].toString());
+                if (snapshot.hasData) {
+                  final products = snapshot.data?.docs.toList();
+                  for (var product in products!) {
+                    var quantity = int.parse(product['quantity'].toString());
 
-                  final productWidget = Offstage(
-                    offstage: quantity == 0,
-                    child: Card(
-                      child: Column(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                            children: [
-                              SizedBox(
-                                height: 250,
-                                child: Image.asset(product['imagePath']),
-                              ),
-                              SizedBox(height: 10),
-                              Text(product['name']),
-                              SizedBox(height: 10),
-                              Text('Quantity: $quantity'),
-                              SizedBox(height: 10),
-
-                              Column(
-                                children: [
-                                  IconButton(
-                                    icon: Icon(Icons.remove),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (quantity > 0) {
-                                          quantity--;
+                    final productWidget = Offstage(
+                      offstage: quantity == 0,
+                      child: Card(
+                        child: Column(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  height: 250,
+                                  child: AspectRatio(
+                                    aspectRatio:
+                                        1, // Set the aspect ratio to 1 for a square shape
+                                    child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Image.asset(
+                                        product['imagePath'],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(product['name']),
+                                SizedBox(height: 10),
+                                Text('Quantity: $quantity'),
+                                SizedBox(height: 10),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.remove),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (quantity > 0) {
+                                            quantity--;
+                                            FirebaseFirestore.instance
+                                                .collection('products')
+                                                .doc(product.id)
+                                                .update({'quantity': quantity});
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.add),
+                                      onPressed: () {
+                                        setState(() {
+                                          quantity++;
                                           FirebaseFirestore.instance
                                               .collection('products')
                                               .doc(product.id)
                                               .update({'quantity': quantity});
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      setState(() {
-                                        quantity++;
-                                        FirebaseFirestore.instance
-                                            .collection('products')
-                                            .doc(product.id)
-                                            .update({'quantity': quantity});
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-
-                            ],
-
-                          ),
-                        ],
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
+                    );
 
-                  productWidgets.add(productWidget);
+                    productWidgets.add(productWidget);
+                  }
                 }
-              }
 
-              return Column(
-                // Wrap the productWidgets list in a Column widget
-                children: productWidgets,
-              );
-            }),
-      ]),
+                return Column(
+                  // Wrap the productWidgets list in a Column widget
+                  children: productWidgets,
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
