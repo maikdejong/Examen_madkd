@@ -1,0 +1,20 @@
+In documentatie includen :
+
+- overleg met opdrachtgever over uitbreiden opdracht, projectomschrijving
+    - (DUIDELIJK displayen wat de 'oude' opdracht was en wat er aan is TOEGEVOEGD)
+- keuze web applicatie (firestore support geen windows app, ios alleen op macos en niet in bezit van android phone)
+-
+
+
+
+
+vandaag doen:
+- documentatie 
+- wireframes
+- items in database zetten
+- informeren over opleverdatum
+
+code: 
+- shared preferences
+- evt nog met die winkel knop
+- evt bestellijst history

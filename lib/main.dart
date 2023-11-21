@@ -121,7 +121,7 @@ class HomeWidget extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/coffeebackground.png'),
+                image: _isSwitched ? AssetImage('images/coffeebackground2.png') : AssetImage('images/coffeebackground.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -149,7 +149,6 @@ class HomeWidget extends StatelessWidget {
   }
 }
 
-//TODO: winkelwagen functionaliteit ipv plus en min knop
 class ProductsWidget extends StatefulWidget {
   const ProductsWidget({Key? key});
 
@@ -205,6 +204,8 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                               Text(product['name']),
                               SizedBox(height: 10),
                               Text('Quantity: $quantity'),
+                              SizedBox(height: 10),
+                              Text('Price: €${product['price']}'),
                               SizedBox(height: 10),
                               Column(
                                 children: [
@@ -268,7 +269,7 @@ class ContactWidget extends StatelessWidget {
         title: Text('Contact'),
       ),
       body: ContactUs(
-        cardColor: _isSwitched ? Colors.black : Colors.white,
+        cardColor: _isSwitched ? Colors.teal : Colors.white,
         textColor: _isSwitched ? Colors.white : Colors.black,
         logo: const AssetImage('images/coffeelogo.png'),
         email: 'maik-de-jong@live.nl',
@@ -279,7 +280,7 @@ class ContactWidget extends StatelessWidget {
         website: 'http://maik.fc.school/',
         githubUserName: 'Maikdejong',
         tagLine: 'Maik de Jong',
-        taglineColor: _isSwitched ? Colors.black : Colors.white,
+        taglineColor: _isSwitched ? Colors.teal : Colors.white,
       ),
     );
   }

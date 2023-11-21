@@ -21,6 +21,7 @@ dependencies:
   cloud_firestore: ^4.13.0
   contactus: ^1.2.3
   get: ^4.6.6
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +39,7 @@ flutter:
 
   assets:
   - images/coffeebackground.png
+  - images/coffeebackground2.png
   - images/coffeelogo.png
   - images/coffee1.png
   - images/coffee2.png
