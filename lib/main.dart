@@ -212,7 +212,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               SizedBox(
-                                height: 230,
+                                height: 195,
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: FittedBox(
@@ -303,7 +303,7 @@ class ContactWidget extends StatelessWidget {
         website: 'http://maik.fc.school/',
         githubUserName: 'Maikdejong',
         tagLine: 'Maik de Jong',
-        taglineColor: _isSwitched ? Colors.teal : Colors.white,
+        taglineColor: Colors.teal,
       ),
     );
   }

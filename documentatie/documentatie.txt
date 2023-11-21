@@ -9,12 +9,11 @@ In documentatie includen :
 
 
 vandaag doen:
-- documentatie 
 - wireframes
-- items in database zetten
-- informeren over opleverdatum
 
 code: 
-- shared preferences
-- evt nog met die winkel knop
+- plus- minknop alleen plusknop van maken, gepluste product -> bestellijstWIDGET: minknop -> quantity terug naar Productswidget 
+
+
+
 - evt bestellijst history
