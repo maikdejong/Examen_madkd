@@ -3,9 +3,12 @@ import 'package:contactus/contactus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  _isSwitched = prefs.getBool('isSwitched') ?? false;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.web,
   );
@@ -16,7 +19,7 @@ bool _isSwitched = false;
 
 class ProductsApp extends StatefulWidget {
   const ProductsApp({super.key});
-
+  
   @override
   State<ProductsApp> createState() => ProductsAppState();
 
@@ -40,10 +43,28 @@ class ProductsAppState extends State<ProductsApp> {
     );
   }
 
-  void changeTheme(ThemeMode themeMode) {
+  void changeTheme(ThemeMode themeMode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('themeMode', themeMode.index);
     setState(() {
       _themeMode = themeMode;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadThemeMode();
+  }
+
+  void _loadThemeMode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? themeModeIndex = prefs.getInt('themeMode');
+    if (themeModeIndex != null) {
+      setState(() {
+        _themeMode = ThemeMode.values[themeModeIndex];
+      });
+    }
   }
 }
 
@@ -121,7 +142,9 @@ class HomeWidget extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: _isSwitched ? AssetImage('images/coffeebackground2.png') : AssetImage('images/coffeebackground.png'),
+                image: _isSwitched
+                    ? AssetImage('images/coffeebackground2.png')
+                    : AssetImage('images/coffeebackground.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -162,7 +185,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
     return Scaffold(
       appBar: AppBar(
         titleTextStyle: TextStyle(
-            color: _isSwitched ? Colors.black : Colors.white, 
+            color: _isSwitched ? Colors.black : Colors.white,
             fontSize: 30,
             fontFamily: 'Coffee'),
         title: Text('Products'),
@@ -299,7 +322,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     return Scaffold(
       appBar: AppBar(
         titleTextStyle: TextStyle(
-            color: _isSwitched ? Colors.black : Colors.white, 
+            color: _isSwitched ? Colors.black : Colors.white,
             fontSize: 30,
             fontFamily: 'Coffee'),
         title: Text('Settings'),
@@ -315,10 +338,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 : Text('Turn on the light'),
             trailing: Switch(
               value: _isSwitched,
-              onChanged: (value) {
+              onChanged: (value) async{
                 setState(() {
                   _isSwitched = value;
                 });
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setBool('isSwitched', value);
                 _isSwitched
                     ? ProductsApp.of(context).changeTheme(ThemeMode.light)
                     : ProductsApp.of(context).changeTheme(ThemeMode.dark);
