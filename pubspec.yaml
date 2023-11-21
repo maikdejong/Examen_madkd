@@ -40,7 +40,10 @@ flutter:
   assets:
   - images/coffeebackground.png
   - images/coffeebackground2.png
+
   - images/coffeelogo.png
+  - images/coffeelogodark.png
+
   - images/coffee1.png
   - images/coffee2.png
   - images/coffee3.png

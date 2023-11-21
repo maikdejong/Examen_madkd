@@ -294,7 +294,7 @@ class ContactWidget extends StatelessWidget {
       body: ContactUs(
         cardColor: _isSwitched ? Colors.teal : Colors.white,
         textColor: _isSwitched ? Colors.white : Colors.black,
-        logo: const AssetImage('images/coffeelogo.png'),
+        logo: _isSwitched ? const AssetImage('images/coffeelogo.png') : const AssetImage('images/coffeelogodark.png'),
         email: 'maik-de-jong@live.nl',
         companyName: 'Koffiewinkel',
         companyColor: _isSwitched ? Colors.black : Colors.white,
@@ -304,6 +304,7 @@ class ContactWidget extends StatelessWidget {
         githubUserName: 'Maikdejong',
         tagLine: 'Maik de Jong',
         taglineColor: Colors.teal,
+        companyFont: 'Coffee',
       ),
     );
   }
