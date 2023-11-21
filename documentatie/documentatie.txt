@@ -11,6 +11,8 @@ In documentatie includen :
 vandaag doen:
 - wireframes
 
+
+
 code: 
 - plus- minknop alleen plusknop van maken, gepluste product -> bestellijstWIDGET: minknop -> quantity terug naar Productswidget 
 
