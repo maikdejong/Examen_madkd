@@ -216,7 +216,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
+                                    fit: BoxFit.contain, 
                                     child: Image.asset(
                                       product['imagePath'],
                                     ),
