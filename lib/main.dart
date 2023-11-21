@@ -102,7 +102,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                     label: Text('Home'),
                   ),
                   NavigationRailDestination(
-                    icon: Icon(Icons.production_quantity_limits),
+                    icon: Icon(Icons.shopping_cart),
                     label: Text('Products'),
                   ),
                   NavigationRailDestination(
@@ -212,7 +212,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               SizedBox(
-                                height: 195,
+                                height: 390,
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: FittedBox(
